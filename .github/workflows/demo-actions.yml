@@ -8,4 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Print out vars
-        run: echo "This workflow was triggered by ${{ github.event_name }} event"
+        run: |
+          echo "This workflow was triggered by ${{ github.event_name }} event"
+          echo "This workflow was initiated by ${{ github. actor }}"
+          echo "This job is running on ${{ runner.os }}"
+          echo "The jobs status is ${{ job.status }}"
+

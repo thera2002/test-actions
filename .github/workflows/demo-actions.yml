@@ -37,8 +37,8 @@ jobs:
           ls -a ${{ github.workspace }}
       - name: Output on $BRANCHNAME branch
         run: |
-          git config --local user.mail "action@github.com"
-          git config --local user "Github Action"
+          git config --local user.email "action@github.com"
+          git config --local user.name "Github Action"
           git checkout --orphan $BRANCHNAME
           git reset --hard
           git add $ZIPFNAME

@@ -41,7 +41,7 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "Github Action"
           git checkout --orphan $BRANCHNAME
-          git reset --hard
+          git rm -rf .
           git add $ZIPFNAME
           git commit -am "Add ZIP file"
           git push origin $BRANCHNAME

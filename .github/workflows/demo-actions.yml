@@ -19,5 +19,11 @@ jobs:
         run: |
           echo "The repository has been cloned to the runner in ${{ github.workspace }}"
           ls -a ${{ github.workspace }}
-
-
+      - name: Install ZIP
+        uses: montudor/action-zip@v1
+      - name: ZIP output
+        run: |
+          mkdir output
+          cp README.md f1.txt output
+          zip -qq -r myoutput.zip output
+          ls -a ${{ github.workspace }}

@@ -33,6 +33,7 @@ jobs:
         run: |
           mkdir output
           cp README.md f01.txt output
+          cp index.html /tmp
           zip -qq -r $ZIPFNAME output
           ls -a ${{ github.workspace }}
       - name: Output on $BRANCHNAME branch
@@ -42,5 +43,7 @@ jobs:
           git checkout --orphan $BRANCHNAME
           git reset --hard
           git add $ZIPFNAME
+          cp /tmp/index.html
+          git add index.html
           git commit -am "Add ZIP file"
           git push origin $BRANCHNAME

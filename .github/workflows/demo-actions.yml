@@ -24,6 +24,6 @@ jobs:
       - name: ZIP output
         run: |
           mkdir output
-          cp README.md f1.txt output
+          cp README.md f01.txt output
           zip -qq -r myoutput.zip output
           ls -a ${{ github.workspace }}

@@ -3,9 +3,15 @@ on:
   push:
     branches:
       - main
+env:
+  DAYOFWEEK: Monday
+ 
 jobs:
   job01:
     runs-on: ubuntu-latest
+    env:
+      ZIPFNAME: myoutput.zip
+      BRANCHNAME: temp
     steps:
       - name: Print out vars
         run: |
@@ -13,6 +19,8 @@ jobs:
           echo "This workflow was initiated by ${{ github. actor }}"
           echo "This job is running on ${{ runner.os }}"
           echo "The jobs status is ${{ job.status }}"
+          echo "Today is ${{ env.DAYOFWEEK }}"
+          echo "Zipname: $ZIPFNAME"
       - name: Checkout GitHub Repo
         uses: actions/checkout@v2
       - name: Print out info on workspace
@@ -25,5 +33,14 @@ jobs:
         run: |
           mkdir output
           cp README.md f01.txt output
-          zip -qq -r myoutput.zip output
+          zip -qq -r $ZIPFNAME output
           ls -a ${{ github.workspace }}
+      - name: Output on $BRANCHNAME branch
+        run: |
+          git config --local user.mail "action@github.com"
+          git config --local user "Github Action"
+          git checkout --orphan $BRANCHNAME
+          git reset --hard
+          git add $ZIPFNAME
+          git commit -am "Add ZIP file"
+          git push origin $BRANCHNAME

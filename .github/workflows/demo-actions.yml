@@ -43,7 +43,5 @@ jobs:
           git checkout --orphan $BRANCHNAME
           git reset --hard
           git add $ZIPFNAME
-          cp /tmp/index.html p.html
-          git add p.html
           git commit -am "Add ZIP file"
           git push origin $BRANCHNAME

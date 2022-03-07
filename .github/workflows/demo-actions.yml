@@ -32,16 +32,13 @@ jobs:
       - name: ZIP output
         run: |
           mkdir output
-          cp README.md f01.txt output
-          cp index.html /tmp
-          zip -qq -r $ZIPFNAME output
-          ls -a ${{ github.workspace }}
-      - name: Output on $BRANCHNAME branch
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "Github Action"
-          git checkout --orphan $BRANCHNAME
-          git rm -rf .
-          git add $ZIPFNAME
-          git commit -am "Add ZIP file"
-          git push origin $BRANCHNAME
+          cp index.html output
+          zip -qq $ZIPFNAME f01.txt README.md
+          cp $ZIPFNAME output
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./output # default: public
+          publish_branch: temp  # default: gh-pages
+          force_orphan: true
